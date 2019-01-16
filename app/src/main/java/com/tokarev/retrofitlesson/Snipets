@@ -1,0 +1,18 @@
+
+val loggingInterceptor = HttpLoggingInterceptor().apply {
+    level = Level.BODY
+}
+
+val httpClient = OkHttpClient.Builder()
+    .addInterceptor(loggingInterceptor)
+    .build()
+
+.client(httpClient)
+
+.addInterceptor(ApiInterceptor())
+
+
+
+.addConverterFactory(JacksonConverterFactory.create())
+.addConverterFactory(ScalarsConverterFactory.create())
+.addCallAdapterFactory(CallAdapterFactory())

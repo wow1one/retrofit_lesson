@@ -9,21 +9,19 @@ import android.widget.TextView
 import kotlinx.android.synthetic.main.activity_main.make_request_button
 import kotlinx.android.synthetic.main.activity_main.request_data_edit_text
 import kotlinx.android.synthetic.main.activity_main.response_text
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.MainScope
-import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
+import kotlinx.coroutines.*
 import okhttp3.MediaType
 import okhttp3.OkHttpClient
 import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
+import org.koin.android.ext.android.inject
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import retrofit2.Retrofit
+import retrofit2.converter.jackson.JacksonConverterFactory
 import retrofit2.converter.scalars.ScalarsConverterFactory
 
 
@@ -34,7 +32,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var makeRequestButton: Button
     private lateinit var responseText: TextView
 
-    private lateinit var testApi: TestApi
+    private val testApi: TestApi by inject()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,24 +43,35 @@ class MainActivity : AppCompatActivity() {
         makeRequestButton.setOnClickListener(::onMakeRequestButtonClicked)
         responseText = response_text
 
-        val retrofit = Retrofit.Builder()
-            .baseUrl("https://bff-vd-krisha-ak.kolesa-team.org/")
-            .build()
+//        val loggingInterceptor = HttpLoggingInterceptor().apply {
+//            level = Level.BODY
+//        }
 
-        testApi = retrofit.create(TestApi::class.java)
+//        val httpClient = OkHttpClient.Builder()
+//            .addInterceptor(ApiInterceptor())
+//            .build()
+//
+//        val retrofit = Retrofit.Builder()
+//            .client(httpClient)
+//            .baseUrl("https://bff-vd-krisha-ak.kolesa-team.org/")
+//            .addCallAdapterFactory(CallAdapterFactory())
+//            .addConverterFactory(JacksonConverterFactory.create())
+//            .build()
+//
+//        testApi = retrofit.create(TestApi::class.java)
     }
 
     private fun onMakeRequestButtonClicked(view: View) {
-        testApi.getUserCallResponseBody().enqueue(
-            object : Callback<ResponseBody> {
-                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                }
-
-                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
-                    responseText.text = response.body()?.string()
-                }
-            }
-        )
+//        testApi.getUserCallResponseBody().enqueue(
+//            object : Callback<ResponseBody> {
+//                override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+//                }
+//
+//                override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+//                    responseText.text = response.body()?.string()
+//                }
+//            }
+//        )
 
 //        testApi.getUserCall().enqueue(
 //            object : Callback<User> {
@@ -178,14 +187,14 @@ class MainActivity : AppCompatActivity() {
 //            responseText.text = responseMessage
 //        }
 //
-//        MainScope().launch {
-//            val response = withContext(Dispatchers.IO) {
-//                val requestData: String = requestDataEditText.text.toString()
-//
-//                return@withContext testApi.postBodyWithHeaders(requestData).execute()
-//            }
-//            val responseMessage = response.body()
-//            responseText.text = responseMessage
-//        }
+        MainScope().launch {
+            val response = withContext(Dispatchers.IO) {
+                val requestData: String = requestDataEditText.text.toString()
+
+                return@withContext testApi.postBodyWithHeaders(requestData).execute()
+            }
+            val responseMessage = response.body()
+            responseText.text = responseMessage
+        }
     }
 }

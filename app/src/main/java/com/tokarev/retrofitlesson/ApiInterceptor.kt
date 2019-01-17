@@ -10,7 +10,7 @@ class ApiInterceptor : Interceptor {
 
         request = request.newBuilder()
             .addHeader("X-App-Platform", "Android/iOS")
-            .addHeader("X-App-Version", "3.3.3")
+            .addHeader("X-App-Version", "1.4.9")
             .build()
 
         return chain.proceed(request)

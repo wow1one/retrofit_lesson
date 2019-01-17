@@ -27,7 +27,7 @@ interface TestApi {
     @GET("retrofitLesson/getUser")
     fun getUser(): User
 
-    @GET("retrofitLesson/{endpoint}.php")
+    @GET("retrofitLesson/{endpoint}")
     fun getUser(@Path(value = "endpoint", encoded = false) endpoint: String): Call<User>
 
     @GET("retrofitLesson/getUserCalculatedAge")
@@ -43,10 +43,10 @@ interface TestApi {
     @POST("retrofitLesson/postUserCalculatedAge")
     fun postUserCalculatedAge(@Field("year") year: Int): Call<User>
 
-    @Headers(
-        "X-App-Platform: Android",
-        "X-App-Version: 1.8.0"
-    )
+//    @Headers(
+//        "X-App-Platform: Android",
+//        "X-App-Version: 1.8.0"
+//    )
     @POST("retrofitLesson/postHeaders")
     fun postBodyWithHeaders(@Body body: String): Call<String>
 

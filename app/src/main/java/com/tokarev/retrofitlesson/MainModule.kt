@@ -5,7 +5,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import org.koin.dsl.module.module
 import retrofit2.Retrofit
-import retrofit2.converter.scalars.ScalarsConverterFactory
+import retrofit2.converter.jackson.JacksonConverterFactory
 
 private const val LOGGING_INTERCEPTOR = "logging_interceptor"
 private const val API_INTERCEPTOR = "api_interceptor"
@@ -30,7 +30,7 @@ val mainModule = module {
         val retrofit = Retrofit.Builder()
             .baseUrl("https://bff-vd-krisha-ak.kolesa-team.org/")
             .client(get())
-            .addConverterFactory(ScalarsConverterFactory.create())
+            .addConverterFactory(JacksonConverterFactory.create())
             .build()
 
         retrofit.create(TestApi::class.java) as TestApi

@@ -28,7 +28,7 @@ val mainModule = module {
     }
     single {
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2/")
+            .baseUrl("https://bff-vd-krisha-ak.kolesa-team.org/")
             .client(get())
             .addConverterFactory(ScalarsConverterFactory.create())
             .build()

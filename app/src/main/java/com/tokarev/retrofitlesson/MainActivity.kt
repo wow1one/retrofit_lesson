@@ -14,7 +14,9 @@ import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.MainScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import okhttp3.MediaType
 import okhttp3.OkHttpClient
+import okhttp3.RequestBody
 import okhttp3.ResponseBody
 import okhttp3.logging.HttpLoggingInterceptor
 import okhttp3.logging.HttpLoggingInterceptor.Level
@@ -44,7 +46,7 @@ class MainActivity : AppCompatActivity() {
         responseText = response_text
 
         val retrofit = Retrofit.Builder()
-            .baseUrl("http://10.0.2.2/")
+            .baseUrl("https://bff-vd-krisha-ak.kolesa-team.org/")
             .build()
 
         testApi = retrofit.create(TestApi::class.java)
@@ -74,7 +76,7 @@ class MainActivity : AppCompatActivity() {
 //                }
 //            }
 //        )
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //
@@ -85,7 +87,7 @@ class MainActivity : AppCompatActivity() {
 //            val age = user?.age
 //            responseText.text = "Username: $name \nAge: $age"
 //        }
-
+//
 //        MainScope().launch {
 //            val user = withContext(Dispatchers.IO) {
 //
@@ -95,29 +97,29 @@ class MainActivity : AppCompatActivity() {
 //            val age = user.age
 //            responseText.text = "Username: $name \nAge: $age"
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //
-//                return@withContext testApi.getUser("getuser2").execute()
+//                return@withContext testApi.getUser("getUser2").execute()
 //            }
 //            val user = response.body()
 //            val name = user?.name
 //            val age = user?.age
 //            responseText.text = "Username: $name \nAge: $age"
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //
-//                return@withContext testApi.getUser(1988).execute()
+//                return@withContext testApi.getUserCalculatedAge(1988).execute()
 //            }
 //            val user = response.body()
 //            val name = user?.name
 //            val age = user?.age
 //            responseText.text = "Username: $name \nAge: $age"
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val mediaType = MediaType.get("text/plain")
@@ -129,7 +131,7 @@ class MainActivity : AppCompatActivity() {
 //            val responseMessage = response.body()?.string()
 //            responseText.text = responseMessage
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val requestData: String = requestDataEditText.text.toString()
@@ -139,19 +141,19 @@ class MainActivity : AppCompatActivity() {
 //            val responseMessage = response.body()
 //            responseText.text = responseMessage
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val requestData: Int = requestDataEditText.text.toString().toInt()
 //
-//                return@withContext testApi.postUser(requestData).execute()
+//                return@withContext testApi.postUserCalculatedAge(requestData).execute()
 //            }
 //            val user = response.body()
 //            val name = user?.name
 //            val age = user?.age
 //            responseText.text = "Username: $name \nAge: $age"
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val requestData: String = requestDataEditText.text.toString()
@@ -161,7 +163,7 @@ class MainActivity : AppCompatActivity() {
 //            val responseMessage = response.body()
 //            responseText.text = responseMessage
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val headers = mapOf(
@@ -175,7 +177,7 @@ class MainActivity : AppCompatActivity() {
 //            val responseMessage = response.body()
 //            responseText.text = responseMessage
 //        }
-
+//
 //        MainScope().launch {
 //            val response = withContext(Dispatchers.IO) {
 //                val requestData: String = requestDataEditText.text.toString()

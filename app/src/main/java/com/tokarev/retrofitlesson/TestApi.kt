@@ -15,41 +15,41 @@ import retrofit2.http.Query
 
 interface TestApi {
 
-    @GET("retrofitlesson/getuser.php")
+    @GET("retrofitLesson/getUser")
     fun getUserCallResponseBody(): Call<ResponseBody>
 
-    @GET("retrofitlesson/getuser.php")
+    @GET("retrofitLesson/getUser")
     fun getUserResponseBody(): ResponseBody
 
-    @GET("retrofitlesson/getuser.php")
+    @GET("retrofitLesson/getUser")
     fun getUserCall(): Call<User>
 
-    @GET("retrofitlesson/getuser.php")
+    @GET("retrofitLesson/getUser")
     fun getUser(): User
 
-    @GET("retrofitlesson/{endpoint}.php")
-    fun getUser(@Path("endpoint") endpoint: String): Call<User>
+    @GET("retrofitLesson/{endpoint}.php")
+    fun getUser(@Path(value = "endpoint", encoded = false) endpoint: String): Call<User>
 
-    @GET("retrofitlesson/getuser3.php")
-    fun getUser(@Query("year") year: Int): Call<User>
+    @GET("retrofitLesson/getUserCalculatedAge")
+    fun getUserCalculatedAge(@Query("year") year: Int): Call<User>
 
-    @POST("retrofitlesson/postbody.php")
+    @POST("retrofitLesson/postBody")
     fun postBody(@Body body: RequestBody): Call<ResponseBody>
 
-    @POST("retrofitlesson/postbody.php")
+    @POST("retrofitLesson/postBody")
     fun postBody(@Body body: String): Call<String>
 
     @FormUrlEncoded
-    @POST("retrofitlesson/postuser.php")
-    fun postUser(@Field("year") year: Int): Call<User>
+    @POST("retrofitLesson/postUserCalculatedAge")
+    fun postUserCalculatedAge(@Field("year") year: Int): Call<User>
 
     @Headers(
         "X-App-Platform: Android",
         "X-App-Version: 1.8.0"
     )
-    @POST("retrofitlesson/postheaders.php")
+    @POST("retrofitLesson/postHeaders")
     fun postBodyWithHeaders(@Body body: String): Call<String>
 
-    @POST("retrofitlesson/postheaders.php")
+    @POST("retrofitLesson/postHeaders")
     fun postBodyWithHeaders(@Body body: String, @HeaderMap headers: Map<String, String>): Call<String>
 }
